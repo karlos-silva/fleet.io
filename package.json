@@ -1,0 +1,10 @@
+{
+  "private": true,
+  "name": "fleet.io",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@fleet.io/lint": "*"
+  }
+}

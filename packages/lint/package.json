@@ -1,0 +1,13 @@
+{
+  "name": "@fleet.io/lint",
+  "version": "1.0.0",
+  "main": ".eslintrc.json",
+  "scripts": {},
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "8.38.0",
+    "@rocketseat/eslint-config": "1.2.0"
+  }
+}
