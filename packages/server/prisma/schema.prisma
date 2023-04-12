@@ -1,0 +1,39 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Fleet {
+  id      String    @id @default(uuid())
+  name    String
+  Vehicle Vehicle[]
+
+  @@map("fleets")
+}
+
+model Vehicle {
+  id             String      @id @default(uuid())
+  chassis_series String
+  chassis_number Int
+  type           VehicleType
+  passengers     Bytes
+  color          String
+
+  fleet   Fleet  @relation(fields: [fleet_id], references: [id])
+  fleet_id String
+
+  @@map("vehicles")
+}
+
+enum VehicleType {
+  BUS
+  TRUCK
+  CAR
+}
