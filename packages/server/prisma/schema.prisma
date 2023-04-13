@@ -12,21 +12,20 @@ datasource db {
 
 model Fleet {
   id      String    @id @default(uuid())
-  name    String
+  name    String @unique
   Vehicle Vehicle[]
 
   @@map("fleets")
 }
 
 model Vehicle {
-  id             String      @id @default(uuid())
-  chassis_series String
-  chassis_number Int
-  type           VehicleType
-  passengers     Bytes
-  color          String
+  id         String      @id @default(uuid())
+  type       VehicleType
+  passengers Bytes
+  color      String
+  chassis_id String      @unique
 
-  fleet   Fleet  @relation(fields: [fleet_id], references: [id])
+  fleet    Fleet  @relation(fields: [fleet_id], references: [id])
   fleet_id String
 
   @@map("vehicles")
