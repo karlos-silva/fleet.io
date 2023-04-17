@@ -1,22 +1,31 @@
 import { FleetsRepository } from '@/repositories/fleets-repository'
 import { FleetAlreadyExistsError } from './errors/fleet-already-exists'
+import { Fleet } from '@prisma/client'
 
-interface RegisterUseCaseRequest {
+interface CreateFleetUseCaseRequest {
   name: string
 }
 
-export class CreateFleetUseCase {
-  constructor(private fleetsRepository: FleetsRepository) {}
+interface CreateFleetUseCaseResponse {
+  fleet: Fleet
+}
 
-  async execute({ name }: RegisterUseCaseRequest) {
+export class CreateFleetUseCase {
+  constructor(private fleetsRepository: FleetsRepository) { }
+
+  async execute({ name }: CreateFleetUseCaseRequest): Promise<CreateFleetUseCaseResponse> {
     const fleetWithSameName = await this.fleetsRepository.findByName(name)
 
     if (fleetWithSameName) {
       throw new FleetAlreadyExistsError()
     }
 
-    await this.fleetsRepository.create({
+    const fleet = await this.fleetsRepository.create({
       name,
     })
+
+    return {
+      fleet
+    }
   }
 }
