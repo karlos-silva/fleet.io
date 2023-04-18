@@ -1,15 +1,17 @@
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
-import { InMemoryFleetRepository } from '@/repositories/in-memory/in-memory-fleet-repository'
+import { InMemoryFleetsRepository } from '@/repositories/in-memory/in-memory-fleets-repository'
 import { CreateFleetUseCase } from './create-fleet'
+import { FleetAlreadyExistsError } from './errors/fleet-already-exists'
 
-let fleetRepository: InMemoryFleetRepository
+let fleetRepository: InMemoryFleetsRepository
 let sut: CreateFleetUseCase
 
-describe('Check-in Use Case', () => {
+describe('Fleet Use Case', () => {
   beforeEach(() => {
-    fleetRepository = new InMemoryFleetRepository()
+    fleetRepository = new InMemoryFleetsRepository()
     sut = new CreateFleetUseCase(fleetRepository)
   })
+
   it('should be able to create fleet', async () => {
     const { fleet } = await sut.execute({
       name: 'Fleet 1'
@@ -17,4 +19,18 @@ describe('Check-in Use Case', () => {
 
     expect(fleet.id).toEqual(expect.any(String))
   })
+
+  it('should not be able to create fleet with same name twice', async () => {
+    const name = 'Fleet 1'
+    await sut.execute({
+      name
+    })
+
+    await expect(() =>
+      sut.execute({
+        name
+      }),
+    ).rejects.toBeInstanceOf(FleetAlreadyExistsError)
+  })
+
 })

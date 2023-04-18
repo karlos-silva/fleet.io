@@ -12,7 +12,7 @@ datasource db {
 
 model Fleet {
   id      String    @id @default(uuid())
-  name    String @unique
+  name    String    @unique
   Vehicle Vehicle[]
 
   @@map("fleets")
@@ -21,7 +21,7 @@ model Fleet {
 model Vehicle {
   id         String      @id @default(uuid())
   type       VehicleType
-  passengers Bytes
+  passengers Int
   color      String
   chassis_id String      @unique
 

@@ -2,8 +2,18 @@ import { Fleet, Prisma } from '@prisma/client'
 import { randomUUID } from 'node:crypto'
 import { FleetsRepository } from '../fleets-repository'
 
-export class InMemoryFleetRepository implements FleetsRepository {
+export class InMemoryFleetsRepository implements FleetsRepository {
   public items: Fleet[] = []
+
+  async findById(id: string) {
+    const fleet = this.items.find((item) => item.id === id)
+
+    if (!fleet) {
+      return null
+    }
+
+    return fleet
+  }
 
   async findByName(name: string) {
     const fleet = this.items.find((item) => item.name === name)
@@ -21,6 +31,7 @@ export class InMemoryFleetRepository implements FleetsRepository {
       name: data.name
     }
 
+    this.items.push(fleet)
 
     return fleet
   }

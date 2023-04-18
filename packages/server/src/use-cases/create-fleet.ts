@@ -14,14 +14,15 @@ export class CreateFleetUseCase {
   constructor(private fleetsRepository: FleetsRepository) { }
 
   async execute({ name }: CreateFleetUseCaseRequest): Promise<CreateFleetUseCaseResponse> {
-    const fleetWithSameName = await this.fleetsRepository.findByName(name)
+    const formattedName = name.trim()
+    const fleetWithSameName = await this.fleetsRepository.findByName(formattedName)
 
     if (fleetWithSameName) {
       throw new FleetAlreadyExistsError()
     }
 
     const fleet = await this.fleetsRepository.create({
-      name,
+      name: formattedName,
     })
 
     return {
