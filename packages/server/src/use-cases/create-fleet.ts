@@ -1,5 +1,5 @@
 import { FleetsRepository } from '@/repositories/fleets-repository'
-import { FleetAlreadyExistsError } from './errors/fleet-already-exists'
+import { FleetAlreadyExistsError } from './errors/fleet-already-exists-error'
 import { Fleet } from '@prisma/client'
 
 interface CreateFleetUseCaseRequest {

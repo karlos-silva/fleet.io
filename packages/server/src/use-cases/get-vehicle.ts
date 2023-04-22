@@ -1,6 +1,6 @@
 import { Vehicle } from '@prisma/client'
 import { VehiclesRepository } from '@/repositories/vehicles-repository'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { VehicleNotFoundError } from './errors/vehicle-not-found-error'
 
 interface GetVehicleUseCaseRequest {
   chassisId: string
@@ -19,7 +19,7 @@ export class GetVehicleUseCase {
     const vehicle = await this.vehiclesRepository.findByChassisId(chassisId)
 
     if (!vehicle) {
-      throw new ResourceNotFoundError()
+      throw new VehicleNotFoundError()
     }
 
     return {

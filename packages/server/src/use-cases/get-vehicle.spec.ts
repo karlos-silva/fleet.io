@@ -1,7 +1,7 @@
 import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
 import { InMemoryVehiclesRepository } from '@/repositories/in-memory/in-memory-vehicles-repository'
 import { GetVehicleUseCase } from './get-vehicle'
-import { ResourceNotFoundError } from './errors/resource-not-found-error'
+import { VehicleNotFoundError } from './errors/vehicle-not-found-error'
 
 let vehiclesRepository: InMemoryVehiclesRepository
 let sut: GetVehicleUseCase
@@ -34,7 +34,7 @@ describe('Fleet Use Case', () => {
       sut.execute({
         chassisId: 'incorrect-chassis-id'
       }),
-    ).rejects.toBeInstanceOf(ResourceNotFoundError)
+    ).rejects.toBeInstanceOf(VehicleNotFoundError)
   })
 
 })

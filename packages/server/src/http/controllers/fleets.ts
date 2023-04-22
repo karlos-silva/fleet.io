@@ -2,7 +2,7 @@ import { z } from 'zod'
 import { FastifyRequest, FastifyReply } from 'fastify'
 import { PrismaFleetsRepository } from '@/repositories/prisma/prisma-fleets-repository'
 import { CreateFleetUseCase } from '@/use-cases/create-fleet'
-import { FleetAlreadyExistsError } from '@/use-cases/errors/fleet-already-exists'
+import { FleetAlreadyExistsError } from '@/use-cases/errors/fleet-already-exists-error'
 
 export async function fleets(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
