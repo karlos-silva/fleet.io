@@ -1,4 +1,4 @@
-import { expect, describe, it, beforeEach, vi, afterEach } from 'vitest'
+import { expect, describe, it, beforeEach } from 'vitest'
 import { InMemoryFleetsRepository } from '@/repositories/in-memory/in-memory-fleets-repository'
 import { CreateFleetUseCase } from './create-fleet'
 import { FleetAlreadyExistsError } from './errors/fleet-already-exists-error'

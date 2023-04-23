@@ -14,6 +14,21 @@ export class InMemoryVehiclesRepository implements VehiclesRepository {
     return vehicle
   }
 
+  async deleteByChassisId(chassis_id: string) {
+    const vehicleIndex = this.items.findIndex(item => item.chassis_id === chassis_id)
+
+    if (vehicleIndex > -1) {
+      this.items.splice(vehicleIndex, 1)
+      return true
+    }
+
+    return null
+  }
+
+  async searchManyByFleetId(fleetId: string) {
+    return this.items.filter(item => item.fleet_id = fleetId)
+  }
+
   async create(data: Prisma.VehicleUncheckedCreateInput) {
     const vehicle = {
       id: randomUUID(),
