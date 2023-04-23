@@ -19,10 +19,10 @@ export class InMemoryVehiclesRepository implements VehiclesRepository {
 
     if (vehicleIndex > -1) {
       this.items.splice(vehicleIndex, 1)
-      return true
+      return chassis_id
     }
 
-    return null
+    return false
   }
 
   async searchManyByFleetId(fleetId: string) {

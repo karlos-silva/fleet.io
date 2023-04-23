@@ -1,21 +1,65 @@
-import { Vehicle, Prisma } from "@prisma/client";
+import { Prisma } from "@prisma/client";
 import { VehiclesRepository } from "../vehicles-repository";
+import { prisma } from "@/lib/prisma";
 
 export class PrismaVehiclesRepository implements VehiclesRepository {
-  findByChassisId(chassis_id: string): Promise<Vehicle | null> {
-    throw new Error("Method not implemented.");
+  async findByChassisId(chassis_id: string) {
+    const vehicle = await prisma.vehicle.findUnique({
+      where: {
+        chassis_id: chassis_id
+      }
+    })
+
+    return vehicle
   }
-  create(data: Prisma.VehicleUncheckedCreateInput): Promise<Vehicle> {
-    throw new Error("Method not implemented.");
+
+  async deleteByChassisId(chassis_id: string) {
+    const vehicle = prisma.vehicle.findUnique({
+      where: { chassis_id }
+    })
+
+    if (!vehicle) {
+      return false
+    }
+
+    prisma.vehicle.delete({
+      where: {
+        chassis_id: chassis_id
+      }
+    })
+
+    return chassis_id
   }
-  deleteByChassisId(chassis_id: string): Promise<boolean | null> {
-    throw new Error("Method not implemented.");
+
+  async searchManyByFleetId(fleetId: string) {
+    const vehicles = await prisma.vehicle.findMany({
+      where: {
+        fleet_id: fleetId
+      }
+    })
+
+    return vehicles
   }
-  searchManyByFleetId(fleetId: string): Promise<Vehicle[]> {
-    throw new Error("Method not implemented.");
+
+  async updateColor(chassis_id: string, color: string) {
+    const vehicle = await prisma.vehicle.update({
+      where: {
+        chassis_id,
+      },
+      data: {
+        color: color
+      }
+    })
+
+    return vehicle
   }
-  updateColor(chassis_id: string, color: string): Promise<Vehicle> {
-    throw new Error("Method not implemented.");
+
+  async create(data: Prisma.VehicleUncheckedCreateInput) {
+    const vehicle = await prisma.vehicle.create({
+      data: data
+    })
+
+    return vehicle
   }
 
 }
