@@ -5,4 +5,5 @@ export interface VehiclesRepository {
   create(data: Prisma.VehicleUncheckedCreateInput): Promise<Vehicle>
   deleteByChassisId(chassis_id: string): Promise<boolean | null>
   searchManyByFleetId(fleetId: string): Promise<Vehicle[]>
+  updateColor(chassis_id: string, color: string): Promise<Vehicle>
 }

@@ -6,7 +6,7 @@ import { VehicleNotFoundError } from './errors/vehicle-not-found-error'
 let vehiclesRepository: InMemoryVehiclesRepository
 let sut: GetVehicleUseCase
 
-describe('Fleet Use Case', () => {
+describe('Get Vehicle Use Case', () => {
   beforeEach(() => {
     vehiclesRepository = new InMemoryVehiclesRepository()
     sut = new GetVehicleUseCase(vehiclesRepository)

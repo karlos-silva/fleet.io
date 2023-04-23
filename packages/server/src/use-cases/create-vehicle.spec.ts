@@ -12,7 +12,7 @@ let vehiclesRepository: InMemoryVehiclesRepository
 let fleetsRepository: InMemoryFleetsRepository
 let sut: CreateVehicleUseCase
 
-describe('Fleet Use Case', () => {
+describe('Create Vehicle Use Case', () => {
   beforeEach(() => {
     vehiclesRepository = new InMemoryVehiclesRepository()
     fleetsRepository = new InMemoryFleetsRepository()

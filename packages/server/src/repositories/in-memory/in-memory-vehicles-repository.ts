@@ -29,6 +29,16 @@ export class InMemoryVehiclesRepository implements VehiclesRepository {
     return this.items.filter(item => item.fleet_id = fleetId)
   }
 
+  async updateColor(chassis_id: string, color: string) {
+    const vehicleIndex = this.items.findIndex(item => item.chassis_id === chassis_id)
+
+    if (vehicleIndex >= 0) {
+      this.items[vehicleIndex].color = color
+    }
+
+    return this.items[vehicleIndex]
+  }
+
   async create(data: Prisma.VehicleUncheckedCreateInput) {
     const vehicle = {
       id: randomUUID(),
