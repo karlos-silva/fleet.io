@@ -1,6 +1,6 @@
 import { FastifyInstance } from 'fastify'
-import { fleets } from './controllers/fleets'
+import { create } from './create'
 
 export async function appRoutes(app: FastifyInstance) {
-  app.post('/fleets', fleets)
+  app.post('/fleets', create)
 }

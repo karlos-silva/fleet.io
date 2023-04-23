@@ -4,7 +4,7 @@ import { PrismaFleetsRepository } from '@/repositories/prisma/prisma-fleets-repo
 import { CreateFleetUseCase } from '@/use-cases/create-fleet'
 import { FleetAlreadyExistsError } from '@/use-cases/errors/fleet-already-exists-error'
 
-export async function fleets(request: FastifyRequest, reply: FastifyReply) {
+export async function create(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
     name: z.string(),
   })
