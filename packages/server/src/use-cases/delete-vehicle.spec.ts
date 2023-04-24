@@ -14,7 +14,7 @@ describe('Delete Vehicle Use Case', () => {
   })
 
   it('should be able to delete existing vehicle', async () => {
-    const vehicle = await vehiclesRepository.create({
+    const createdVehicle = await vehiclesRepository.create({
       type: 'BUS',
       passengers: 42,
       color: 'blue',
@@ -22,11 +22,11 @@ describe('Delete Vehicle Use Case', () => {
       fleet_id: '1'
     })
 
-    const { chassisId } = await sut.execute({
-      chassisId: vehicle.chassis_id
+    const { vehicle } = await sut.execute({
+      chassisId: createdVehicle.chassis_id
     })
 
-    expect(chassisId).toEqual(expect.any(String))
+    expect(vehicle.id).toEqual(expect.any(String))
   })
   it('should not be able to delete inexistent vehicle', async () => {
 

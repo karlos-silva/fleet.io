@@ -17,12 +17,13 @@ export class InMemoryVehiclesRepository implements VehiclesRepository {
   async deleteByChassisId(chassis_id: string) {
     const vehicleIndex = this.items.findIndex(item => item.chassis_id === chassis_id)
 
+    const vehicle = this.items[vehicleIndex]
+
     if (vehicleIndex > -1) {
       this.items.splice(vehicleIndex, 1)
-      return chassis_id
     }
 
-    return false
+    return vehicle
   }
 
   async searchManyByFleetId(fleetId: string) {

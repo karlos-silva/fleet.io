@@ -7,7 +7,7 @@ interface DeleteVehicleUseCaseRequest {
 }
 
 interface DeleteVehicleUseCaseResponse {
-  chassisId: string
+  vehicle: Vehicle
 }
 
 export class DeleteVehicleUseCase {
@@ -16,14 +16,16 @@ export class DeleteVehicleUseCase {
   ) { }
 
   async execute({ chassisId }: DeleteVehicleUseCaseRequest): Promise<DeleteVehicleUseCaseResponse> {
-    const vehicle = await this.vehiclesRepository.deleteByChassisId(chassisId)
+    const findVehicle = await this.vehiclesRepository.findByChassisId(chassisId)
 
-    if (!vehicle) {
+    if (!findVehicle) {
       throw new VehicleNotFoundError()
     }
 
+    const vehicle = await this.vehiclesRepository.deleteByChassisId(chassisId)
+
     return {
-      chassisId
+      vehicle
     }
   }
 }

@@ -5,7 +5,7 @@ import { VehicleNotFoundError } from '@/use-cases/errors/vehicle-not-found-error
 
 export async function deleteVehicle(request: FastifyRequest, reply: FastifyReply) {
   const deleteVehicleParamsSchema = z.object({
-    chassisId: z.coerce.string()
+    chassisId: z.string()
   })
 
   const { chassisId } = deleteVehicleParamsSchema.parse(request.params)
@@ -17,12 +17,13 @@ export async function deleteVehicle(request: FastifyRequest, reply: FastifyReply
       chassisId
     })
   } catch (error) {
-
     if (error instanceof VehicleNotFoundError) {
       return reply.status(404).send({ message: error.message })
     }
     throw error
   }
 
-  return reply.status(202).send()
+  return reply.status(202).send({
+    message: 'Vehicle Deleted'
+  })
 }

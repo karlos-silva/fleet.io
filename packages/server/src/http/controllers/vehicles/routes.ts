@@ -6,5 +6,5 @@ import { deleteVehicle } from './delete-vehicle'
 export async function vehiclesRoutes(app: FastifyInstance) {
   app.post('/vehicles', create)
 
-  app.delete('/vehicles/:vehicleId', deleteVehicle)
+  app.delete('/vehicles/:chassisId', deleteVehicle)
 }

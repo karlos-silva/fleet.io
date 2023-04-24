@@ -14,21 +14,11 @@ export class PrismaVehiclesRepository implements VehiclesRepository {
   }
 
   async deleteByChassisId(chassis_id: string) {
-    const vehicle = prisma.vehicle.findUnique({
-      where: { chassis_id }
-    })
-
-    if (!vehicle) {
-      return false
-    }
-
-    prisma.vehicle.delete({
+    return prisma.vehicle.delete({
       where: {
         chassis_id: chassis_id
       }
     })
-
-    return chassis_id
   }
 
   async searchManyByFleetId(fleetId: string) {
