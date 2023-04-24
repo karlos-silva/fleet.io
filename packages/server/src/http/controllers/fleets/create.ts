@@ -1,19 +1,17 @@
 import { z } from 'zod'
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { PrismaFleetsRepository } from '@/repositories/prisma/prisma-fleets-repository'
-import { CreateFleetUseCase } from '@/use-cases/create-fleet'
+import { makeCreateFleetUseCase } from '@/use-cases/factories/make-create-fleet-use-case'
 import { FleetAlreadyExistsError } from '@/use-cases/errors/fleet-already-exists-error'
 
 export async function create(request: FastifyRequest, reply: FastifyReply) {
-  const registerBodySchema = z.object({
+  const createFleetBodySchema = z.object({
     name: z.string(),
   })
 
-  const { name } = registerBodySchema.parse(request.body)
+  const { name } = createFleetBodySchema.parse(request.body)
 
   try {
-    const fleetsRepository = new PrismaFleetsRepository()
-    const createFleetUseCase = new CreateFleetUseCase(fleetsRepository)
+    const createFleetUseCase = makeCreateFleetUseCase()
 
     await createFleetUseCase.execute({
       name,
@@ -22,7 +20,6 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     if (error instanceof FleetAlreadyExistsError) {
       return reply.status(409).send({ message: error.message })
     }
-
     throw error
   }
 

@@ -1,11 +1,13 @@
 import fastify from 'fastify'
-import { appRoutes } from './http/controllers/fleets/routes'
+import { fleetsRoutes } from './http/controllers/fleets/routes'
 import { ZodError } from 'zod'
 import { env } from './env'
+import { vehiclesRoutes } from './http/controllers/vehicles/routes'
 
 export const app = fastify()
 
-app.register(appRoutes)
+app.register(vehiclesRoutes)
+app.register(fleetsRoutes)
 
 app.setErrorHandler((error, _, reply) => {
   if (error instanceof ZodError) {
