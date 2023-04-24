@@ -1,9 +1,11 @@
 import { z } from 'zod'
 import { FastifyRequest, FastifyReply } from 'fastify'
-import { FleetAlreadyExistsError } from '@/use-cases/errors/fleet-already-exists-error'
 import { makeCreateVehicleUseCase } from '@/use-cases/factories/make-create-vehicle-use-case'
 import { FleetNotFoundError } from '@/use-cases/errors/fleet-not-found-error'
 import { VehicleAlreadyExistsError } from '@/use-cases/errors/vehicle-already-exists'
+import { BusPassengerIncorrectError } from '@/use-cases/errors/bus-passenger-incorrect-error'
+import { CarPassengerIncorrectError } from '@/use-cases/errors/car-passenger-incorrect-error'
+import { TruckPassengerIncorrectError } from '@/use-cases/errors/truck-passenger-incorrect-error'
 
 export async function create(request: FastifyRequest, reply: FastifyReply) {
   const registerBodySchema = z.object({
@@ -34,6 +36,15 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
       return reply.status(404).send({ message: error.message })
     }
     if (error instanceof VehicleAlreadyExistsError) {
+      return reply.status(409).send({ message: error.message })
+    }
+    if (error instanceof BusPassengerIncorrectError) {
+      return reply.status(409).send({ message: error.message })
+    }
+    if (error instanceof CarPassengerIncorrectError) {
+      return reply.status(409).send({ message: error.message })
+    }
+    if (error instanceof TruckPassengerIncorrectError) {
       return reply.status(409).send({ message: error.message })
     }
     throw error
