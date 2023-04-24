@@ -8,7 +8,7 @@ import { CarPassengerIncorrectError } from '@/use-cases/errors/car-passenger-inc
 import { TruckPassengerIncorrectError } from '@/use-cases/errors/truck-passenger-incorrect-error'
 
 export async function create(request: FastifyRequest, reply: FastifyReply) {
-  const registerBodySchema = z.object({
+  const createVehicleBodySchema = z.object({
     type: z.enum(['BUS', 'TRUCK', 'CAR']),
     passengers: z.number(),
     color: z.string(),
@@ -17,7 +17,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     fleetId: z.string().uuid()
   })
 
-  const { type, passengers, color, chassisNumber, chassisSeries, fleetId } = registerBodySchema.parse(request.body)
+  const { type, passengers, color, chassisNumber, chassisSeries, fleetId } = createVehicleBodySchema.parse(request.body)
 
   try {
     const createVehicleUseCase = makeCreateVehicleUseCase()
