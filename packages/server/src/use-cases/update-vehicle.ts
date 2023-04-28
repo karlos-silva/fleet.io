@@ -1,7 +1,7 @@
 import { Vehicle } from '@prisma/client'
 import { VehiclesRepository } from '@/repositories/vehicles-repository'
 interface UpdateVehicleUseCaseRequest {
-  chassis_id: string
+  chassisId: string
   color: string
 }
 
@@ -14,9 +14,9 @@ export class UpdateVehicleUseCase {
     private vehiclesRepository: VehiclesRepository
   ) { }
 
-  async execute({ color, chassis_id }: UpdateVehicleUseCaseRequest): Promise<UpdateVehicleUseCaseResponse> {
+  async execute({ color, chassisId }: UpdateVehicleUseCaseRequest): Promise<UpdateVehicleUseCaseResponse> {
 
-    const vehicle = await this.vehiclesRepository.updateColor(chassis_id, color)
+    const vehicle = await this.vehiclesRepository.updateColor(chassisId, color)
 
     return {
       vehicle

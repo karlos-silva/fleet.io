@@ -29,7 +29,7 @@ describe('Update Vehicle Use Case', () => {
     })
 
     const { vehicle } = await sut.execute({
-      chassis_id: 'abc123',
+      chassisId: 'abc123',
       color: 'red'
     })
 
