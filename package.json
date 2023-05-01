@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node build/server.js",
     "start:dev": "tsx watch src/server.ts",
-    "build": "npm install && tsup src --out-dir build",
+    "build": "tsup src --out-dir build",
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
